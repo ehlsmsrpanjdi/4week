@@ -399,3 +399,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/My project/UserSettings
+/My project/Library
+/My project/Temp
