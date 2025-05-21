@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50ae8658a4490074a87fb4c1b8776ec2, type: 3}
-  m_Name: Rock
+  m_Script: {fileID: 11500000, guid: d9b1873c72f099348b83bf6029aca05a, type: 3}
+  m_Name: RockData
   m_EditorClassIdentifier: 
-  itemName: Rock
-  itemDescription: Is Rock
-  itemImage: {fileID: 0}
+  itemImg: {fileID: 21300000, guid: e61976ceaf6919c47853f5a7ea09288b, type: 3}
+  itemText: Rock is Rock
+  itemEnum: 1
