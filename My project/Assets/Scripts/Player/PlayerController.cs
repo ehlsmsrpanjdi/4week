@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public float maxXLook;
     private float camCurXRot;
     public float lookSensitivity;
+    bool isJump = false;
 
     private Vector2 mouseDelta;
 
@@ -39,11 +40,20 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        UIManager.Instance.DangerousReset();
         //StartCoroutine(PlayerFlip());
     }
 
     private void FixedUpdate()
     {
+        if (isJump)
+        {
+            if(true == UIManager.Instance.DangerousUpdate())
+            {
+                Debug.Log("플레이어 사망");
+            }
+            return;
+        }
         Grounded();
         Gravity();
         Move();
@@ -76,10 +86,17 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && IsGround == true)
+        if (context.phase == InputActionPhase.Started && IsGround == true && isJump == false)
         {
-            _rigidbody.AddForce(averageNormal * jumpPower, ForceMode.Impulse);
+            JumpFunction(jumpPower);
         }
+    }
+
+    public void JumpFunction(float _JumpPower)
+    {
+        isJump = true;
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.AddForce(averageNormal * _JumpPower, ForceMode.Impulse);
     }
 
     public void OnItemUseInput(InputAction.CallbackContext context)
@@ -126,6 +143,8 @@ public class PlayerController : MonoBehaviour
             if (planetObject != other.gameObject)
             {
                 planetObject = other.gameObject;
+                UIManager.Instance.DangerousReset();
+                isJump = false;
                 StartCoroutine(FlipPlayer(other.transform));
             }
         }

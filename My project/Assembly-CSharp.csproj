@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AllManager\ItemManager.cs" />
+    <Compile Include="Assets\Scripts\InteractionObject\JumpObject.cs" />
     <Compile Include="Assets\Externals\Blink\Art\Animals\Stylized\Demo_Animals\DemoData\AnimationDemo.cs" />
     <Compile Include="Assets\Scripts\Planet\Planet.cs" />
     <Compile Include="Assets\Scripts\UI\Inventory\InventroyUI.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Item\ItemData.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\UI\DangerousImage\DangerousImage.cs" />
     <Compile Include="Assets\Scripts\UI\InteractionLayIcon\Interaction.cs" />
     <Compile Include="Assets\Scripts\Item\UseItem.cs" />
     <Compile Include="Assets\Scripts\Item\SpawnItem.cs" />

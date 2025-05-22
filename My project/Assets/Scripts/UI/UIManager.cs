@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
 
     InventroyUI Inventory;
     ItemText itemText;
+    DangerousImage dangerImg;
 
     List<IUI> UIList = new List<IUI>();
 
@@ -48,8 +49,11 @@ public class UIManager : MonoBehaviour
         }
         Inventory = GetComponentInChildren<InventroyUI>();
         itemText = GetComponentInChildren<ItemText>();
+        dangerImg = GetComponentInChildren<DangerousImage>();
+        
         UIList.Add(Inventory);
         UIList.Add(itemText);
+        UIList.Add(dangerImg);
     }
 
 
@@ -79,6 +83,16 @@ public class UIManager : MonoBehaviour
     public void ItemUse(int _itemIndex)
     {
         Inventory.ItemUse(_itemIndex - 1);
+    }
+
+    public bool DangerousUpdate()
+    {
+        return dangerImg.DangerUpdate();
+    }
+
+    public void DangerousReset()
+    {
+        dangerImg.DangerReset();
     }
 
 }
