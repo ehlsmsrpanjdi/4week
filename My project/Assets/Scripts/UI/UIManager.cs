@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     InventroyUI Inventory;
     ItemText itemText;
     DangerousImage dangerImg;
+    UIHealth uiHealth;
 
     List<IUI> UIList = new List<IUI>();
 
@@ -50,10 +51,13 @@ public class UIManager : MonoBehaviour
         Inventory = GetComponentInChildren<InventroyUI>();
         itemText = GetComponentInChildren<ItemText>();
         dangerImg = GetComponentInChildren<DangerousImage>();
-        
+        uiHealth = GetComponentInChildren<UIHealth>();
+
+
         UIList.Add(Inventory);
         UIList.Add(itemText);
         UIList.Add(dangerImg);
+        UIList.Add(uiHealth);
     }
 
 
@@ -93,6 +97,12 @@ public class UIManager : MonoBehaviour
     public void DangerousReset()
     {
         dangerImg.DangerReset();
+    }
+
+    public void OnHealthUpdate(float _percent)
+    {
+        uiHealth.OnHealthUpdate(_percent);
+        dangerImg.OnHit();
     }
 
 }

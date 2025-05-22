@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseDelta;
 
     GameObject planetObject;
+
+    float gravityForce = 30f;
 
 
     [HideInInspector]
@@ -51,6 +54,7 @@ public class PlayerController : MonoBehaviour
             if(true == UIManager.Instance.DangerousUpdate())
             {
                 Debug.Log("플레이어 사망");
+                EditorApplication.isPlaying = false;
             }
             return;
         }
@@ -136,6 +140,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    float health = 1f;
+    float CoolTime = 2f;
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Monster") == true && CoolTime > 2f)
+        {
+            CoolTime = 0f;
+            health -= 0.2f;
+            UIManager.Instance.OnHealthUpdate(health);
+            if (health <= 0f)
+            {
+                Debug.Log("플레이어사망");
+                EditorApplication.isPlaying = false;
+            }
+        }
+    }
+    private void Update()
+    {
+        CoolTime += Time.deltaTime;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Planet") == true)
@@ -174,6 +199,8 @@ public class PlayerController : MonoBehaviour
         // 4. 최종 회전 정리
         transform.rotation = targetRotation;
     }
+
+
 
     private void Move()
     {
@@ -250,13 +277,10 @@ public class PlayerController : MonoBehaviour
     {
         if (IsGround == true)
         {
-            _rigidbody.AddForce(-averageNormal * 30f, ForceMode.Acceleration);
+            _rigidbody.AddForce(-averageNormal * gravityForce, ForceMode.Acceleration);
         }
     }
 
-    private void Update()
-    {
-    }
 
     public void ToggleCursor(bool toggle)
     {
